@@ -18,12 +18,12 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener { hitungBmi() }
     }
     private fun hitungBmi() {
-        val berat = binding.beratEditText.text.toString()
+        val berat = binding.beratBadanInp.text.toString()
         if (TextUtils.isEmpty(berat)) {
             Toast.makeText(this, R.string.berat_invalid, Toast.LENGTH_LONG).show()
             return
         }
-        val tinggi = binding.tinggiEditText.text.toString()
+        val tinggi = binding.tinggiBadanInp.text.toString()
         if (TextUtils.isEmpty(tinggi)) {
             Toast.makeText(this, R.string.tinggi_invalid, Toast.LENGTH_LONG).show()
             return
