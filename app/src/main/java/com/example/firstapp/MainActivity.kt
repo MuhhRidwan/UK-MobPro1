@@ -6,11 +6,16 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.firstapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +60,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.gender_invalid, Toast.LENGTH_LONG).show()
             return
         }
+        val result = viewModel.hitungBmi(
+            berat.toFloat(),
+            tinggi.toFloat(),
+            selectedId == R.id.priaRadioButton
+        )
         showResult(result)
     }
 
