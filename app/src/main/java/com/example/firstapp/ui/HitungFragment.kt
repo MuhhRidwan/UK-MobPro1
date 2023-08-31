@@ -32,7 +32,13 @@ class HitungFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.button.setOnClickListener { hitungBmi() }
+        binding.saranButton.setOnClickListener {
+            it.findNavController().navigate(
+                R.id.action_hitungFragment_to_saranFragment
+            )
+        }
         viewModel.getHasilBmi().observe(requireActivity(), { showResult(it) })
+
     }
 
     private fun reset() {
@@ -82,5 +88,6 @@ class HitungFragment : Fragment() {
         binding.kategoriTextView.text = getString(
             R.string.kategori_x,
             getKategoriLabel(result.kategori))
+        binding.saranButton.visibility = View.VISIBLE
     }
 }
