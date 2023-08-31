@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.R
 import com.example.firstapp.databinding.ListItemBinding
