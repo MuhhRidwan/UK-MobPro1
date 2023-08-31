@@ -13,17 +13,23 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     private val data = MutableLiveData<List<Hewan>>()
+    private val status = MutableLiveData<HewanApi.ApiStatus>()
     init {
         retrieveData()
     }
     private fun retrieveData() {
         viewModelScope.launch (Dispatchers.IO) {
+            status.postValue(HewanApi.ApiStatus.LOADING)
             try {
                 data.postValue(HewanApi.service.getHewan())
+                status.postValue(HewanApi.ApiStatus.SUCCESS)
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
+                status.postValue(HewanApi.ApiStatus.FAILED)
+
             }
         }
     }
     fun getData(): LiveData<List<Hewan>> = data
+    fun getStatus(): LiveData<HewanApi.ApiStatus> = status
 }
