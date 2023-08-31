@@ -1,16 +1,32 @@
 package com.example.firstapp.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.firstapp.R
 import com.example.firstapp.model.Hewan
+import com.example.firstapp.network.HewanApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     private val data = MutableLiveData<List<Hewan>>()
     init {
         data.value = initData()
     }
+    private fun retrieveData() {
+        viewModelScope.launch (Dispatchers.IO) {
+            try {
+                val result = HewanApi.service.getHewan()
+                Log.d("MainViewModel", "Success: $result")
+            } catch (e: Exception) {
+                Log.d("MainViewModel", "Failure: ${e.message}")
+            }
+        }
+    }
+
     // Data ini akan kita ambil dari server di langkah selanjutnya
     private fun initData(): List<Hewan> {
         return listOf(
