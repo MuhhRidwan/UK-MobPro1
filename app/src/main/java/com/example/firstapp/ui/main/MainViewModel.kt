@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
+import com.example.firstapp.MainActivity
 import com.example.firstapp.R
 import com.example.firstapp.model.Hewan
 import com.example.firstapp.network.HewanApi
@@ -41,7 +43,8 @@ class MainViewModel : ViewModel() {
             .setInitialDelay(1, TimeUnit.MINUTES)
             .build()
         WorkManager.getInstance(app).enqueueUniqueWork(
-            "updater",
+            MainActivity.CHANNEL_ID,
+
             ExistingWorkPolicy.REPLACE,
             request
         )
