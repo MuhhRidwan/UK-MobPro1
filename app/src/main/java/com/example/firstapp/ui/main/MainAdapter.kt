@@ -1,10 +1,11 @@
-package com.example.firstapp
+package com.example.firstapp.ui.main
 
-import Hewan
+import com.example.firstapp.model.Hewan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.firstapp.R
 import com.example.firstapp.databinding.ListItemBinding
 
 class MainAdapter(private val data: List<Hewan>) :
