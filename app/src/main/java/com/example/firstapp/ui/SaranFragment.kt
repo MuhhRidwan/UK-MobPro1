@@ -11,9 +11,12 @@ import com.example.firstapp.R
 import com.example.firstapp.databinding.FragmentSaranBinding
 import com.example.firstapp.model.KategoriBmi
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.navArgs
 
 class SaranFragment : Fragment() {
     private lateinit var binding: FragmentSaranBinding
+    private val args: SaranFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +47,6 @@ class SaranFragment : Fragment() {
         }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        updateUI(KategoriBmi.KURUS)
+        updateUI(args.kategori)
     }
 }

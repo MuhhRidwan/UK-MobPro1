@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
 import com.example.firstapp.MainViewModel
 import com.example.firstapp.R
 import com.example.firstapp.databinding.ActivityMainBinding
@@ -32,12 +33,16 @@ class HitungFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.button.setOnClickListener { hitungBmi() }
-        binding.saranButton.setOnClickListener {
-            it.findNavController().navigate(
-                R.id.action_hitungFragment_to_saranFragment
-            )
-        }
+
+        binding.saranButton.setOnClickListener { viewModel.mulaiNavigasi() }
+
         viewModel.getHasilBmi().observe(requireActivity(), { showResult(it) })
+        viewModel.getNavigasi().observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            findNavController().navigate(HitungFragmentDirections
+                .actionHitungFragmentToSaranFragment(it))
+            viewModel.selesaiNavigasi()
+        })
 
     }
 
