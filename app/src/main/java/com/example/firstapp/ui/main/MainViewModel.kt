@@ -1,5 +1,6 @@
 package com.example.firstapp.ui.main
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +9,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.firstapp.R
 import com.example.firstapp.model.Hewan
 import com.example.firstapp.network.HewanApi
+import com.example.firstapp.network.UpdateWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class MainViewModel : ViewModel() {
     private val data = MutableLiveData<List<Hewan>>()
@@ -32,4 +35,16 @@ class MainViewModel : ViewModel() {
     }
     fun getData(): LiveData<List<Hewan>> = data
     fun getStatus(): LiveData<HewanApi.ApiStatus> = status
+
+    fun scheduleUpdater(app: Application) {
+        val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(app).enqueueUniqueWork(
+            "updater",
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
+    }
+
 }
